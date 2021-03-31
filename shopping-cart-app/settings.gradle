@@ -8,4 +8,5 @@
  */
 
 rootProject.name = 'shopping-cart-api'
-include('app', 'persistence-control-app', 'business-core-app')
+include('app', 'persistence-control-app', 'business-core-app', 'core-model')
+
