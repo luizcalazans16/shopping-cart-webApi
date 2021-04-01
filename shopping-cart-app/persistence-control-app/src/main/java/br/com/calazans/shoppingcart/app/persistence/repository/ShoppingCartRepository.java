@@ -1,6 +1,6 @@
-package br.com.calazans.shoppingcart.persistence.repository;
+package br.com.calazans.shoppingcart.app.persistence.repository;
 
-import br.com.calazans.shoppingcart.model.ShoppingCart;
+import br.com.calazans.shoppingcart.app.model.ShoppingCart;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -11,6 +11,7 @@ plugins {
 dependencies {
     implementation project(':core-model')
     implementation 'org.springframework.boot:spring-boot-starter'
+    runtimeOnly 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
