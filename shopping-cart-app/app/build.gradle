@@ -6,6 +6,12 @@ plugins {
     id 'br.com.calazans.shoppingcart.java-application-conventions'
     id 'org.springframework.boot' version '2.4.4'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'info.solidsoft.pitest' version '1.5.1'
+    id "org.sonarqube" version "3.0"
+}
+
+repositories {
+    mavenCentral()
 }
 
 dependencies {
@@ -15,11 +21,15 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-hateoas'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.mock-server:mockserver-client-java:5.11.2'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation group: 'junit', name: 'junit', version: '4.13.2'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+    testImplementation 'org.mock-server:mockserver-netty:5.11.1'
 
 }
 
@@ -32,7 +42,9 @@ application {
     mainClass = 'br.com.calazans.shoppingcart.app.ShoppingCartApplication'
 }
 
-tasks.withType(Test) {
-    useJUnitPlatform()
-    jvmArgs '--enable-preview'
+pitest {
+    targetClasses = ['br.com.calazans.*']
+    threads = 4
+    outputFormats = ['XML', 'HTML']
+    timestampedReports = true
 }
