@@ -16,7 +16,7 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     @Override
-    public Product getProductById(UUID productId) {
+    public Product getProductById(Integer productId) {
         return productRepository.findById(productId).orElseThrow(() -> new NoSuchElementException());
     }
 }

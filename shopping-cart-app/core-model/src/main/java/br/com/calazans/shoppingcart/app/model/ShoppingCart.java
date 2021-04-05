@@ -5,9 +5,9 @@ import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -19,6 +19,9 @@ import java.util.UUID;
 public class ShoppingCart {
 
     @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(columnDefinition = "BINARY(16)")
     private UUID id;
 
     @ElementCollection
@@ -28,15 +31,14 @@ public class ShoppingCart {
     @Column(name = "quantity")
     private Map<Product, Integer> products;
 
-    private Double subTotal;
+    private Double total;
 
     private LocalDateTime generationTime;
 
-
-    public void calculateSubTotal() {
-        subTotal = .0;
+    public void calculateTotal() {
+        total = .0;
         for(Map.Entry<Product,Integer> entry : products.entrySet()){
-            subTotal += entry.getKey().getUnitPrice() * entry.getValue();
+            total += entry.getKey().getUnitPrice() * entry.getValue();
         }
     }
 

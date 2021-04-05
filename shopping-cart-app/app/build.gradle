@@ -18,9 +18,21 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation group: 'junit', name: 'junit', version: '4.13'
+    testRuntimeOnly group: 'junit', name: 'junit', version: '4.13'
+
+}
+
+test {
+    useJUnitPlatform()
 }
 
 application {
     // Define the main class for the application.
     mainClass = 'br.com.calazans.shoppingcart.app.ShoppingCartApplication'
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+    jvmArgs '--enable-preview'
 }

@@ -12,7 +12,7 @@ public class ShoppingCartMapper {
                 ShoppingCartDto.builder()
                 .id(entity.getId())
                 .products(entity.getProducts())
-                .subTotal(entity.getSubTotal())
+                .total(entity.getTotal())
                 .build();
     }
 }

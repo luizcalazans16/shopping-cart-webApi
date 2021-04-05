@@ -18,7 +18,7 @@ public class ShoppingCartDto {
 
     private final Map<Product, Integer> products;
 
-    private Double subTotal;
+    private Double total;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static final class ShoppingCartDtoBuilder {

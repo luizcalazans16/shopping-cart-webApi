@@ -6,7 +6,6 @@ import br.com.calazans.shoppingcart.app.core.service.ShoppingCartService;
 import br.com.calazans.shoppingcart.app.model.ShoppingCart;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,15 +19,17 @@ public class ShoppingCartController {
     @Autowired
     private ShoppingCartService shoppingCartService;
 
-    @PostMapping("{shoppingCartId}/add")
-    public ResponseEntity<ShoppingCartDto> addProducts(@PathVariable final UUID shoppingCartId, @RequestParam final UUID productId,
+    @PostMapping("/{shoppingCartId}/add")
+    public ResponseEntity<ShoppingCartDto> addProducts(@PathVariable final UUID shoppingCartId,
+                                                       @RequestParam final Integer productId,
                                                        @RequestParam final Integer amount) {
         log.info("Adicionando amount[{}] produtos com o id: product[{}] ao carrinho: [{}]", amount, productId, shoppingCartId);
 
         ShoppingCart foundShoppingCart = shoppingCartService.getShoppingCartById(shoppingCartId);
-        shoppingCartService.addProduct(shoppingCartId, productId, amount);
+        shoppingCartService.addProduct(foundShoppingCart, productId, amount);
+        foundShoppingCart.calculateTotal();
+        foundShoppingCart =shoppingCartService.confirmOrder(foundShoppingCart);
 
-        foundShoppingCart.calculateSubTotal();
         return ResponseEntity.ok(ShoppingCartMapper.map(foundShoppingCart));
     }
 

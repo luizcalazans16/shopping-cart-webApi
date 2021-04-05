@@ -10,5 +10,7 @@ public interface ShoppingCartService {
 
     ShoppingCart createShoppingCart();
 
-    void addProduct(final UUID shoppingCartId, final UUID productId, final Integer amount);
+    void addProduct(ShoppingCart shoppingCart, final Integer productId, final Integer amount);
+
+    ShoppingCart confirmOrder(ShoppingCart shoppingCart);
 }

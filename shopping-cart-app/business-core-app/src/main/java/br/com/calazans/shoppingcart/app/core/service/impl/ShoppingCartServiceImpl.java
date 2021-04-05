@@ -30,19 +30,24 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public ShoppingCart createShoppingCart() {
         ShoppingCart shoppingCart = new ShoppingCart();
-        shoppingCart.setGenerationTime(LocalDateTime.now());
+        shoppingCart = shoppingCartRepository.save(shoppingCart);
 
-        shoppingCartRepository.save(shoppingCart);
         return shoppingCart;
     }
 
     @Override
-    public void addProduct(final UUID shoppingCartId, final UUID productId, final Integer amount) {
-        ShoppingCart foundShoppingCart = getShoppingCartById(shoppingCartId);
+    public void addProduct(ShoppingCart shoppingCart, final Integer productId, final Integer amount) {
         Product storedProduct = productService.getProductById(productId);
 
-        Map<Product, Integer> shoppingCartProducts = foundShoppingCart.getProducts();
+        Map<Product, Integer> shoppingCartProducts = shoppingCart.getProducts();
         shoppingCartProducts.put(storedProduct, amount);
 
+    }
+
+    @Override
+    public ShoppingCart confirmOrder(ShoppingCart shoppingCart) {
+        shoppingCart.setGenerationTime(LocalDateTime.now());
+
+        return shoppingCartRepository.save(shoppingCart);
     }
 }
