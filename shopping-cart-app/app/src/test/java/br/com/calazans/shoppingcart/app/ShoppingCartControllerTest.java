@@ -2,11 +2,8 @@ package br.com.calazans.shoppingcart.app;
 
 import br.com.calazans.shoppingcart.app.model.Product;
 import br.com.calazans.shoppingcart.app.model.ShoppingCart;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -14,8 +11,8 @@ import java.util.Map;
 import java.util.UUID;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ShoppingCartControllerTest {
 
@@ -28,7 +25,7 @@ public class ShoppingCartControllerTest {
 
         Double total = calculateTotal(shoppingCart.getProducts());
 
-        Assert.assertEquals(shoppingCart.getProducts().entrySet().size(), 2);
+        assertEquals(shoppingCart.getProducts().entrySet().size(), 2);
         assertThat(total).isGreaterThan(50);
 
     }
