@@ -6,14 +6,19 @@ import br.com.calazans.shoppingcart.app.persistence.repository.ProductRepository
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.UUID;
 
 @Service
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Override
+    public List<Product> findAllProducts() {
+        return productRepository.findAll();
+    }
 
     @Override
     public Product getProductById(Integer productId) {

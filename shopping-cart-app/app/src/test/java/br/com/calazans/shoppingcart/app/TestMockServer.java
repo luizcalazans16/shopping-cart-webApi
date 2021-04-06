@@ -30,11 +30,19 @@ public class TestMockServer {
     }
 
     @Test
-    public void testUrl() {
+    public void testUrlShoppingCart() {
         mockServer.when(request()
                 .withPath("/v1/shopping-cart/create")
                 .withMethod("POST"))
                 .respond(response().withStatusCode(200));
+    }
+
+    @Test
+    public void testUrlProduct() {
+        mockServer.when(request()
+        .withPath("/v1/product")
+        .withMethod("GET"))
+        .respond(response().withStatusCode(200));
     }
 
 }
