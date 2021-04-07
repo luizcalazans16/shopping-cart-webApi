@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ProductController {
 
-    @Autowired
+    @Autowired  
     private ProductService productService;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
