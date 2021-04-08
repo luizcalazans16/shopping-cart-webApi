@@ -1,0 +1,37 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Produtos</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1> Produtos </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Descrição</th>
+                    <th>Preço unitário</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${products.empty}">
+                    <td colspan="2">Nenhum produto disponível</td>
+                </tr>
+                <tr th:each="product : ${products}">
+                    <td><span th:text="${product.description}">Descrição</span></td>
+                    <td><span th:text="${product.unitPrice}">Preço unitário</span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
