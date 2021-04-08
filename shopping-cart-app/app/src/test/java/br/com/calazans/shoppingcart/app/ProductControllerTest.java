@@ -18,7 +18,7 @@ public class ProductControllerTest {
     private TestRestTemplate restTemplate;
 
     @Test
-    public void getProduct() {
+    public void mustReturnAProductWithDefinedName() {
         final String productId = "1";
         final ProductDto dto = restTemplate.getForObject("/v1/product/".concat(productId), ProductDto.class);
         Assert.assertNotNull(dto);
@@ -26,7 +26,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void listProducts(){
+    public void mustReturnAListWithObjects(){
         final ProductDto[] dtos = restTemplate.getForObject("/v1/product", ProductDto[].class);
 
         assertThat(dtos).isNotEmpty();

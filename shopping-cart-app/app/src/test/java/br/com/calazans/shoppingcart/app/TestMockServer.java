@@ -2,13 +2,11 @@ package br.com.calazans.shoppingcart.app;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-
 import org.junit.Test;
 import org.mockserver.integration.ClientAndServer;
 import org.mockserver.logging.MockServerLogger;
 import org.mockserver.socket.PortFactory;
 import org.mockserver.socket.tls.KeyStoreFactory;
-import org.mockserver.verify.VerificationTimes;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -30,14 +28,6 @@ public class TestMockServer {
         mockServer.stop();
     }
 
-    @Test
-    public void verifyEndpoint() {
-        mockServer.verify(request()
-                .withPath("/v1/product")
-                .withMethod("GET"),
-                VerificationTimes.atLeast(2)
-        );
-    }
 
     @Test
     public void testUrlShoppingCart() {

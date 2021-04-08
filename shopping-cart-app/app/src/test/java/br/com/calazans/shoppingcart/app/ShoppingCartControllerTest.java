@@ -19,7 +19,7 @@ import java.util.UUID;
 public class ShoppingCartControllerTest {
 
     @Test
-    public void shouldCreateAShoppingCart() {
+    public void mustCreateShoppingCart() {
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.setId(UUID.randomUUID());
         shoppingCart.setProducts(populateProducts());
