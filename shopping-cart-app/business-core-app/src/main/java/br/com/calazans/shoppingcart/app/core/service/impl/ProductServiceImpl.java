@@ -1,5 +1,6 @@
 package br.com.calazans.shoppingcart.app.core.service.impl;
 
+import br.com.calazans.shoppingcart.app.core.dto.ProductDto;
 import br.com.calazans.shoppingcart.app.core.service.ProductService;
 import br.com.calazans.shoppingcart.app.model.Product;
 import br.com.calazans.shoppingcart.app.persistence.repository.ProductRepository;
@@ -23,5 +24,17 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product getProductById(Integer productId) {
         return productRepository.findById(productId).orElseThrow(() -> new NoSuchElementException());
+    }
+
+    @Override
+    public void registerProduct(Product entity) {
+        store(null, entity);
+    }
+
+    private void store(Integer id, Product entity) {
+        entity.setId(id);
+
+        productRepository.save(entity);
+
     }
 }

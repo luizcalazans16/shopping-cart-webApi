@@ -3,13 +3,11 @@ package br.com.calazans.shoppingcart.app.controller;
 import br.com.calazans.shoppingcart.app.core.dto.ProductDto;
 import br.com.calazans.shoppingcart.app.core.mapper.ProductMapper;
 import br.com.calazans.shoppingcart.app.core.service.ProductService;
+import br.com.calazans.shoppingcart.app.model.Product;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,5 +32,13 @@ public class ProductController {
     public ProductDto getProductById(@PathVariable final Integer productId) {
         log.info("Buscando produto pelo id: [{}]", productId);
         return ProductMapper.map(productService.getProductById(productId));
+    }
+
+    @PostMapping("/register")
+    public void createProduct(@RequestBody final ProductDto productDto) {
+        log.info("Cadastrando produto... | productDto[{}]", productDto);
+        Product entity = ProductMapper.map(productDto);
+        productService.registerProduct(entity);
+
     }
 }
