@@ -24,7 +24,7 @@ public class TestMockServer {
     }
 
     @AfterClass
-    public static void stopMockServer() {
+    public static void stopMockServer()  {
         mockServer.stop();
     }
 

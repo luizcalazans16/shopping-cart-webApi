@@ -6,7 +6,9 @@ import br.com.calazans.shoppingcart.app.core.service.ProductService;
 import br.com.calazans.shoppingcart.app.model.Product;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,28 +19,30 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ProductController {
 
-    @Autowired  
+    @Autowired
     private ProductService productService;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ProductDto> findAllProducts() {
-      log.info("Listando produtos...");
-      return productService.findAllProducts().stream()
-              .map(ProductMapper::map)
-              .collect(Collectors.toList());
+    public ResponseEntity<List<ProductDto>> findAllProducts() {
+        log.info("Listando produtos...");
+        return ResponseEntity.ok(productService.findAllProducts()
+                .stream()
+                .map(ProductMapper::map)
+                .collect(Collectors.toList()));
     }
 
     @GetMapping(value = "/{productId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ProductDto getProductById(@PathVariable final Integer productId) {
+    public ResponseEntity<ProductDto> getProductById(@PathVariable final Integer productId) {
         log.info("Buscando produto pelo id: [{}]", productId);
-        return ProductMapper.map(productService.getProductById(productId));
+        return ResponseEntity.ok(ProductMapper.map(productService.getProductById(productId)));
     }
 
-    @PostMapping("/register")
-    public void createProduct(@RequestBody final ProductDto productDto) {
+    @PostMapping("/create")
+    public ResponseEntity<ProductDto> createProduct(@RequestBody final ProductDto productDto) {
         log.info("Cadastrando produto... | productDto[{}]", productDto);
         Product entity = ProductMapper.map(productDto);
-        productService.registerProduct(entity);
+        return new ResponseEntity<>(ProductMapper.map(productService.registerProduct(entity)),
+                HttpStatus.CREATED);
 
     }
 }

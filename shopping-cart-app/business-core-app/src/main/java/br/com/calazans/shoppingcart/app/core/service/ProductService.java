@@ -11,5 +11,5 @@ public interface ProductService {
 
     Product getProductById(Integer productId);
 
-    void registerProduct(Product entity);
+    Product registerProduct(Product entity);
 }

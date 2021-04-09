@@ -27,14 +27,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void registerProduct(Product entity) {
-        store(null, entity);
+    public Product registerProduct(Product entity) {
+        return store(null, entity);
     }
 
-    private void store(Integer id, Product entity) {
+    private Product store(Integer id, Product entity) {
         entity.setId(id);
 
-        productRepository.save(entity);
-
+        return productRepository.save(entity);
     }
 }
