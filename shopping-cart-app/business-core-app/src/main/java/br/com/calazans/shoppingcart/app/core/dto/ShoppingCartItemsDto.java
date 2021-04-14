@@ -1,27 +1,21 @@
 package br.com.calazans.shoppingcart.app.core.dto;
 
-import br.com.calazans.shoppingcart.app.model.Product;
-import br.com.calazans.shoppingcart.app.model.constants.ShoppingCartStatusEnum;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import lombok.Builder;
 import lombok.Value;
 
 import java.util.Map;
-import java.util.UUID;
 
 @Value
 @Builder
 @JsonDeserialize(builder = ShoppingCartDto.ShoppingCartDtoBuilder.class)
-public class ShoppingCartDto {
+public class ShoppingCartItemsDto {
 
-    private final UUID id;
+    private Map<ProductDto, Integer> products;
 
-    private final Map<Product, Integer> products;
+    private Double totalCost;
 
-    private Double total;
-
-    private ShoppingCartStatusEnum status;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static final class ShoppingCartDtoBuilder {

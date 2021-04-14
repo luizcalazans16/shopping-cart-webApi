@@ -1,6 +1,7 @@
 package br.com.calazans.shoppingcart.app.controller;
 
 import br.com.calazans.shoppingcart.app.core.dto.ShoppingCartDto;
+import br.com.calazans.shoppingcart.app.core.dto.ShoppingCartItemsDto;
 import br.com.calazans.shoppingcart.app.core.mapper.ShoppingCartMapper;
 import br.com.calazans.shoppingcart.app.core.request.AddToShoppingCartDto;
 import br.com.calazans.shoppingcart.app.core.response.ApiResponse;
@@ -23,11 +24,11 @@ public class ShoppingCartController {
     private ShoppingCartService shoppingCartService;
 
     @GetMapping("/{shoppingCartId}")
-    public ResponseEntity<ShoppingCartDto> listCartItems(@PathVariable final UUID shoppingCartId) {
+    public ResponseEntity<ShoppingCartItemsDto> listCartItems(@PathVariable final UUID shoppingCartId) {
         log.info("Listando produtos do carrinho de id: [{}]", shoppingCartId);
 
         ShoppingCart storedShoppingCart = shoppingCartService.getShoppingCartById(shoppingCartId);
-        return ResponseEntity.ok(ShoppingCartMapper.map(storedShoppingCart));
+        return ResponseEntity.ok(ShoppingCartMapper.mapToCartItems(storedShoppingCart));
     }
 
     @PostMapping("/{shoppingCartId}/add")
@@ -48,6 +49,28 @@ public class ShoppingCartController {
         log.info("Criando carrinho de compras...");
         ShoppingCart shoppingCart = shoppingCartService.createShoppingCart();
         return new ResponseEntity<>(ShoppingCartMapper.map(shoppingCart), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{shoppingCartId}")
+    public ResponseEntity<ApiResponse> updateCartItem(@PathVariable final UUID shoppingCartId,
+                                                      @RequestBody AddToShoppingCartDto dto) {
+        log.info("Atualizando item do carrinho de compras de id[{}]. requestBody[{}]", shoppingCartId, dto);
+
+        shoppingCartService.updateCartItem(shoppingCartId, dto);
+        return new ResponseEntity<>(ApiResponse.builder()
+                .success(Boolean.TRUE)
+                .message("Item do carrinho atualizado com sucesso.")
+                .build(), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{shoppingCartId}")
+    public ResponseEntity<ApiResponse> clearShoppingCart(@PathVariable final UUID shoppingCartId) {
+        log.info("Esvaziando carrinho de compras de id: [{}]", shoppingCartId);
+        shoppingCartService.clearShoppingCart(shoppingCartId);
+
+        return new ResponseEntity<>(ApiResponse.builder()
+                .message("Carrinho esvaziado com sucesso")
+                .success(Boolean.TRUE).build(), HttpStatus.NO_CONTENT);
     }
 
 }

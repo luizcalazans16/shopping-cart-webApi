@@ -4,6 +4,9 @@ import br.com.calazans.shoppingcart.app.core.dto.ProductDto;
 import br.com.calazans.shoppingcart.app.model.Product;
 import lombok.experimental.UtilityClass;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @UtilityClass
 public class ProductMapper {
 
@@ -28,5 +31,16 @@ public class ProductMapper {
         entity.setUnitPrice(dto.getUnitPrice());
 
         return entity;
+    }
+
+    public static Map<ProductDto, Integer> map(Map<Product, Integer> products) {
+        if (products != null && !products.isEmpty()) {
+            Map<ProductDto, Integer> productsDto = new HashMap<>();
+            for (Map.Entry<Product, Integer> entry : products.entrySet()) {
+                productsDto.put(map(entry.getKey()), entry.getValue());
+            }
+            return productsDto;
+        }
+        return null;
     }
 }

@@ -1,6 +1,8 @@
 package br.com.calazans.shoppingcart.app.core.service.impl;
 
+import br.com.calazans.shoppingcart.app.core.exceptions.BusinessException;
 import br.com.calazans.shoppingcart.app.core.exceptions.ResourceNotFoundException;
+import br.com.calazans.shoppingcart.app.core.request.AddToShoppingCartDto;
 import br.com.calazans.shoppingcart.app.core.service.ProductService;
 import br.com.calazans.shoppingcart.app.core.service.ShoppingCartService;
 import br.com.calazans.shoppingcart.app.model.Product;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -25,7 +28,14 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCart getShoppingCartById(final UUID shoppingCartId) {
-        return shoppingCartRepository.findById(shoppingCartId).orElseThrow(() -> new ResourceNotFoundException(ShoppingCart.class, shoppingCartId));
+        Optional<ShoppingCart> shoppingCartOptional = shoppingCartRepository.findById(shoppingCartId);
+
+        if (shoppingCartOptional.isPresent()) {
+            ShoppingCart storedShoppingCart = shoppingCartOptional.get();
+            storedShoppingCart.calculateTotal();
+            return storedShoppingCart;
+        }
+        throw new ResourceNotFoundException(ShoppingCart.class, shoppingCartId);
     }
 
     @Override
@@ -33,15 +43,29 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         ShoppingCart shoppingCart = getShoppingCartById(shoppingCartId);
         Product storedProduct = productService.getProductById(productId);
 
-        shoppingCart.getProducts().put(storedProduct, amount);
-        shoppingCart = shoppingCartRepository.save(shoppingCart);
+        Map<Product, Integer> shoppingCartProducts = shoppingCart.getProducts();
 
+        if (shoppingCartProducts.isEmpty()) {
+            shoppingCartProducts.put(storedProduct, amount);
+
+        } else {
+            Integer storedProductAmount = shoppingCartProducts.get(storedProduct);
+            if (storedProductAmount != null) {
+                storedProductAmount += amount;
+                shoppingCartProducts.put(storedProduct, storedProductAmount);
+            } else {
+                shoppingCartProducts.put(storedProduct, amount);
+            }
+
+        }
+        shoppingCart = shoppingCartRepository.save(shoppingCart);
         return shoppingCart;
     }
 
     @Override
     public ShoppingCart createShoppingCart() {
         ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.setStatus(ShoppingCartStatusEnum.CREATED);
         shoppingCart = shoppingCartRepository.save(shoppingCart);
 
         return shoppingCart;
@@ -53,5 +77,23 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         entity.setStatus(ShoppingCartStatusEnum.CONFIRMED);
 
         shoppingCartRepository.save(entity);
+    }
+
+    @Override
+    public void updateCartItem(UUID shoppingCartId, AddToShoppingCartDto dto) {
+        ShoppingCart storedShoppingcart = getShoppingCartById(shoppingCartId);
+        Product storedProduct = productService.getProductById(dto.getProductId());
+        Map<Product, Integer> shoppingCartProducts = storedShoppingcart.getProducts();
+
+        shoppingCartProducts.put(storedProduct, dto.getAmount());
+        shoppingCartRepository.save(storedShoppingcart);
+    }
+
+    @Override
+    public void clearShoppingCart(UUID shoppingCartId) {
+        ShoppingCart storedShoppingCart = getShoppingCartById(shoppingCartId);
+        storedShoppingCart.getProducts().clear();
+
+        shoppingCartRepository.save(storedShoppingCart);
     }
 }
