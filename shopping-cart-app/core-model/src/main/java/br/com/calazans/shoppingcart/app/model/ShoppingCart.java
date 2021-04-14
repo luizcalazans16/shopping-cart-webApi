@@ -2,6 +2,7 @@ package br.com.calazans.shoppingcart.app.model;
 
 import javax.persistence.*;
 
+import br.com.calazans.shoppingcart.app.model.constants.ShoppingCartStatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,6 +35,8 @@ public class ShoppingCart {
     private Double total;
 
     private LocalDateTime generationTime;
+
+    private ShoppingCartStatusEnum status;
 
     public void calculateTotal() {
         total = .0;

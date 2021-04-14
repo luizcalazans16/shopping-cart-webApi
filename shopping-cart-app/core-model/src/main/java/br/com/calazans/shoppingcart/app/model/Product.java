@@ -22,6 +22,12 @@ public class Product {
 
     @Column(name = "unit_price")
     private Double unitPrice;
+
+
+    public Product(String description, Double unitPrice) {
+        this.description = description;
+        this.unitPrice = unitPrice;
+    }
 }
 
 
