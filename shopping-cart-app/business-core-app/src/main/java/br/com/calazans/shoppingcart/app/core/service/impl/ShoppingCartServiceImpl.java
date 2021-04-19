@@ -1,6 +1,6 @@
 package br.com.calazans.shoppingcart.app.core.service.impl;
 
-import br.com.calazans.shoppingcart.app.core.exceptions.ResourceNotFoundException;
+import br.com.calazans.shoppingcart.app.config.exceptions.ResourceNotFoundException;
 import br.com.calazans.shoppingcart.app.core.request.AddToShoppingCartDto;
 import br.com.calazans.shoppingcart.app.core.service.ProductService;
 import br.com.calazans.shoppingcart.app.core.service.ShoppingCartService;

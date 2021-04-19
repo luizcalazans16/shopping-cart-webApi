@@ -1,4 +1,4 @@
-package br.com.calazans.shoppingcart.app.core.exceptions;
+package br.com.calazans.shoppingcart.app.config.exceptions;
 
 public class BusinessException extends LocalizedException {
 

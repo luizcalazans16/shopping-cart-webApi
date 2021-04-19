@@ -12,6 +12,7 @@ plugins {
 dependencies {
     implementation project(':persistence-control-app')
     implementation project(':core-model')
+    implementation project(':application-config')
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
 
