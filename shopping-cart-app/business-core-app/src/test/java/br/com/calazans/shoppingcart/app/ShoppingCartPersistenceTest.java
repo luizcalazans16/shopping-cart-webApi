@@ -3,6 +3,7 @@ package br.com.calazans.shoppingcart.app;
 import br.com.calazans.shoppingcart.app.core.service.impl.ShoppingCartServiceImpl;
 import br.com.calazans.shoppingcart.app.model.Product;
 import br.com.calazans.shoppingcart.app.model.ShoppingCart;
+import br.com.calazans.shoppingcart.app.model.constants.ShoppingCartStatusEnum;
 import br.com.calazans.shoppingcart.app.persistence.repository.ShoppingCartRepository;
 import org.junit.Assert;
 import org.junit.Test;
@@ -39,8 +40,9 @@ public class ShoppingCartPersistenceTest {
 
 
     @Test
-    public void shoppingcartRegisterSuccess() {
-        ShoppingCart savedShoppingCart = new ShoppingCart(UUID.randomUUID(), populateProducts(), 140.0, LocalDateTime.now());
+    public void shoppingCartRegisterSuccess() {
+        ShoppingCart savedShoppingCart = new ShoppingCart(UUID.randomUUID(), populateProducts(), 140.0, LocalDateTime.now(),
+                ShoppingCartStatusEnum.CREATED);
 
         when(shoppingCartRepository.save(any(ShoppingCart.class))).thenReturn(savedShoppingCart);
 

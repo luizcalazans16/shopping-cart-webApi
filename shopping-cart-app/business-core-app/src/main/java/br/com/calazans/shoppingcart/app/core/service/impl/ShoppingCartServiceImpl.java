@@ -1,6 +1,5 @@
 package br.com.calazans.shoppingcart.app.core.service.impl;
 
-import br.com.calazans.shoppingcart.app.core.exceptions.BusinessException;
 import br.com.calazans.shoppingcart.app.core.exceptions.ResourceNotFoundException;
 import br.com.calazans.shoppingcart.app.core.request.AddToShoppingCartDto;
 import br.com.calazans.shoppingcart.app.core.service.ProductService;
@@ -81,12 +80,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public void updateCartItem(UUID shoppingCartId, AddToShoppingCartDto dto) {
-        ShoppingCart storedShoppingcart = getShoppingCartById(shoppingCartId);
+        ShoppingCart storedShoppingCart = getShoppingCartById(shoppingCartId);
         Product storedProduct = productService.getProductById(dto.getProductId());
-        Map<Product, Integer> shoppingCartProducts = storedShoppingcart.getProducts();
+        Map<Product, Integer> shoppingCartProducts = storedShoppingCart.getProducts();
 
         shoppingCartProducts.put(storedProduct, dto.getAmount());
-        shoppingCartRepository.save(storedShoppingcart);
+        shoppingCartRepository.save(storedShoppingCart);
     }
 
     @Override
