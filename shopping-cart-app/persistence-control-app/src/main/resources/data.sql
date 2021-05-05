@@ -1,6 +1,0 @@
-insert into product (description, unit_price) values ('Control Xbox One S - branco', 400.0)
-insert into product (description, unit_price) values ('Fifa 21 - PS5', 250.0)
-insert into product (description, unit_price) values ('Headset HyperX', 350.0)
-insert into product (description, unit_price) values ('Cadeira gamer Husky', 1050.0)
-insert into product (description, unit_price) values ('Rainbow Six Siege Xbox One S', 150.0)
-insert into product (description, unit_price) values ('Mouse gamer Logitech', 100.0)
