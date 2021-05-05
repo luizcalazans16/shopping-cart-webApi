@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import lombok.Builder;
 import lombok.Value;
+import org.springframework.hateoas.Links;
 
 @Value
 @Builder
@@ -16,6 +17,8 @@ public class ProductDto {
     private final String description;
 
     private final Double unitPrice;
+
+    private final Links links;
 
     @JsonPOJOBuilder(withPrefix = "")
     public static final class ProductDtoBuilder {

@@ -36,6 +36,7 @@ public class ShoppingCart {
 
     private LocalDateTime generationTime;
 
+    @Enumerated(EnumType.STRING)
     private ShoppingCartStatusEnum status;
 
     public void calculateTotal() {

@@ -18,6 +18,7 @@ dependencies {
         // Define dependency versions as constraints
         implementation 'org.apache.commons:commons-text:1.9'
     }
+    implementation 'org.springframework.boot:spring-boot-starter-hateoas'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'

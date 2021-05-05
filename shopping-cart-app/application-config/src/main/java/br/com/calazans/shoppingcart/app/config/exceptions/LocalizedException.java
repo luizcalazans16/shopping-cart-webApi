@@ -1,12 +1,13 @@
 package br.com.calazans.shoppingcart.app.config.exceptions;
 
+import org.apache.tomcat.jni.Local;
+
 public class LocalizedException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
     private final String bundleKey;
     private final Object[] args;
-
 
     public LocalizedException(String bundleKey, Object... args) {
         this(null, bundleKey, args);

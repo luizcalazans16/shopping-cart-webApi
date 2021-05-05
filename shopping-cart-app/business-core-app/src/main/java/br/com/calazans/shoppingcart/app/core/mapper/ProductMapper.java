@@ -17,6 +17,7 @@ public class ProductMapper {
                 .id(entity.getId())
                 .description(entity.getDescription())
                 .unitPrice(entity.getUnitPrice())
+                .links(entity.getLinks())
                 .build();
     }
 
@@ -29,7 +30,6 @@ public class ProductMapper {
         entity.setId(dto.getId());
         entity.setDescription(dto.getDescription());
         entity.setUnitPrice(dto.getUnitPrice());
-
         return entity;
     }
 

@@ -24,7 +24,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-hateoas'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.4.4'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.mock-server:mockserver-client-java:5.11.2'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 

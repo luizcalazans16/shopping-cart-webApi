@@ -2,7 +2,9 @@ package br.com.calazans.shoppingcart.app.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.*;
 
@@ -10,8 +12,9 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper=false)
 @Table(name = "product")
-public class Product {
+public class Product extends RepresentationModel<Product> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

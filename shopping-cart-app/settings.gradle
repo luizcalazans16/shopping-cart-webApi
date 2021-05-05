@@ -9,4 +9,3 @@
 
 rootProject.name = 'shopping-cart-api'
 include('app', 'core-model', 'persistence-control-app', 'business-core-app', 'application-config')
-
